@@ -1,0 +1,68 @@
+class StudentGradeTracker:
+    def _init_(self, name):
+        self.name = name
+        self.grades = {}
+
+    def input_grades(self):
+        print(f"Enter grades for {self.name}:")
+        while True:
+            subject = input("Enter subject (or 'done' to finish): ")
+            if subject.lower() == 'done':
+                break
+            try:
+                grade = float(input(f"Enter grade for {subject}: "))
+                self.grades[subject] = grade
+            except ValueError:
+                print("Invalid input! Please enter a numeric grade.")
+    
+    def calculate_average(self):
+        if self.grades:
+            average_grade = sum(self.grades.values()) / len(self.grades)
+            return average_grade
+        else:
+            return 0.0
+
+    def determine_letter_grade(self, average):
+        if average >= 90:
+            return "A"
+        elif average >= 80:
+            return "B"
+        elif average >= 70:
+            return "C"
+        elif average >= 60:
+            return "D"
+        else:
+            return "F"
+
+    def calculate_gpa(self, average):
+        if average >= 90:
+            return 4.0
+        elif average >= 80:
+            return 3.0
+        elif average >= 70:
+            return 2.0
+        elif average >= 60:
+            return 1.0
+        else:
+            return 0.0
+
+    def display_results(self):
+        average = self.calculate_average()
+        letter_grade = self.determine_letter_grade(average)
+        gpa = self.calculate_gpa(average)
+        
+        print("\n--- Student Grade Report ---")
+        print(f"Student: {self.name}")
+        print(f"Grades: {self.grades}")
+        print(f"Average Grade: {average:.2f}")
+        print(f"Letter Grade: {letter_grade}")
+        print(f"GPA: {gpa:.2f}")
+
+
+# Main Program
+if _name_ == "_main_":
+    student_name = input("Enter the student's name: ")
+    student = StudentGradeTracker(student_name)
+    
+    student.input_grades()
+    student.display_results()
